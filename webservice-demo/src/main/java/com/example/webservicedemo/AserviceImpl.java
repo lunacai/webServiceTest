@@ -10,7 +10,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 
-@WebService
+@WebService(endpointInterface = "com.example.webservicedemo.Aservice",
+        name = "User",// 定义Port名称
+        serviceName = "Aservice", // 修改WebService服务名称
+        targetNamespace = "http://com.example.ws/my" // 定义命名空间，默认为倒置的包名
+)
 public class AserviceImpl implements Aservice {
 
     @Override
@@ -30,6 +34,9 @@ public class AserviceImpl implements Aservice {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (objectMap.get("username") == null) {
+            return "";
+        }
         return (String) objectMap.get("username");
     }
 
@@ -41,6 +48,7 @@ public class AserviceImpl implements Aservice {
         Connection connection = JDBCUtil.getConnection();
         //定义sql语句
         String sql = "insert into user(`username`, `description`, `content`) VALUES(?,?,?)";
+        System.out.println(sql);
         try {
             assert connection != null;
             int update = queryRunner.update(connection, sql, username, desc, content);

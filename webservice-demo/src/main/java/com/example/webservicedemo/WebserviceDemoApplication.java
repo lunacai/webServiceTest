@@ -21,11 +21,12 @@ public class WebserviceDemoApplication {
 
         String address = "http://" + ip + ":12345/aservice";
         Endpoint.publish(address, new AserviceImpl());
+        System.out.println(address);
         System.out.println("publish finish !");
 
-        address = "http://" + ip + ":12345/hello";
-        System.out.println(address);
-        Endpoint.publish(address, new demoController());
+//        address = "http://" + ip + ":12345/hello";
+//        System.out.println(address);
+//        Endpoint.publish(address, new demoController());
 
     }
 
